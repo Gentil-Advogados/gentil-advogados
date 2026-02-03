@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>ASL AMERICAS | Plano de Expansão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+        :root {
+            --preto: #0a0a0a;
+            --cinza-escuro: #1a1a1a;
+            --cinza-medio: #2d2d2d;
+            --cinza-claro: #4a4a4a;
+            --cinza-texto: #b0b0b0;
+            --branco: #ffffff;
+            --branco-suave: #f5f5f5;
+            --dourado: #b8860b;
+            --dourado-claro: #d4a84b;
+            --dourado-fosco: #9a7209;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--branco-suave);
+            color: var(--cinza-escuro);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--preto);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* LANGUAGE SELECTOR */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            width: 32px;
+            height: 22px;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            opacity: 0.6;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .lang-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            border-color: var(--dourado);
+            box-shadow: 0 0 10px rgba(184, 134, 11, 0.5);
+        }
+
+        .lang-btn-br {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 504"><rect fill="%23009c3b" width="720" height="504"/><polygon fill="%23ffdf00" points="360,42 690,252 360,462 30,252"/><circle fill="%23002776" cx="360" cy="252" r="105"/><path fill="%23fff" d="M232,252c0-58,47-105,105-105a105,105 0 0 1 82,39c-20-7-42-11-65-11-71,0-130,37-150,90a105,105 0 0 1 28-13z"/></svg>');
+        }
+
+        .lang-btn-us {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7410 3900"><rect fill="%23b22234" width="7410" height="3900"/><g fill="%23fff"><rect y="300" width="7410" height="300"/><rect y="900" width="7410" height="300"/><rect y="1500" width="7410" height="300"/><rect y="2100" width="7410" height="300"/><rect y="2700" width="7410" height="300"/><rect y="3300" width="7410" height="300"/></g><rect fill="%233c3b6e" width="2964" height="2100"/></svg>');
+        }
+
+        /* MENU HAMBURGER */
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background-color: var(--dourado);
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* MENU SUSPENSO */
+        .nav-menu {
+            position: fixed;
+            top: 80px;
+            right: -100%;
+            width: 85%;
+            max-width: 400px;
+            height: calc(100vh - 80px);
+            background: #ffffff;
+            transition: right 0.4s ease;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding: 0 0 100px 0;
+            box-shadow: -8px 0 30px rgba(0,0,0,0.4);
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            z-index: 999;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+        }
+
+        .nav-menu li {
+            border-bottom: 1px solid #e0e0e0;
+            background: #ffffff;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 16px 20px;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            background: #ffffff;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a:active {
+            background: #f0f0f0;
+            color: var(--dourado-fosco);
+        }
+
+        .nav-menu .menu-section {
+            color: #ffffff;
+            background: var(--cinza-escuro);
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 20px;
+            border-bottom: none;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        /* OVERLAY */
+        .overlay {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            margin-top: 80px;
+            padding-bottom: 60px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 100%);
+            color: var(--branco);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--dourado);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--cinza-texto);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--dourado) 0%, var(--dourado-fosco) 100%);
+            color: var(--preto);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* WELCOME SECTION */
+        .welcome-section {
+            background-color: var(--branco);
+            padding: 50px 20px;
+            border-bottom: 3px solid var(--dourado);
+        }
+
+        .welcome-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-section h2 {
+            color: var(--cinza-escuro);
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .welcome-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--dourado);
+        }
+
+        .welcome-section p {
+            color: var(--cinza-claro);
+            text-align: justify;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .welcome-section .highlight {
+            background: linear-gradient(135deg, var(--cinza-escuro) 0%, var(--preto) 100%);
+            color: var(--branco);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid var(--dourado);
+        }
+
+        .welcome-section .highlight p {
+            color: var(--cinza-texto);
+            margin-bottom: 0;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 50px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--branco);
+        }
+
+        section:nth-child(odd) {
+            background-color: var(--branco-suave);
+        }
+
+        .section-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--dourado) 0%, var(--dourado-fosco) 100%);
+            color: var(--preto);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        section h2 {
+            color: var(--cinza-escuro);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--dourado);
+        }
+
+        section h3 {
+            color: var(--cinza-escuro);
+            font-size: 1.1rem;
+            margin: 25px 0 15px;
+            font-weight: bold;
+        }
+
+        section p {
+            color: var(--cinza-claro);
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        section ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        section ul li {
+            padding: 12px 0 12px 30px;
+            position: relative;
+            color: var(--cinza-claro);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--dourado);
+            font-weight: bold;
+        }
+
+        /* CARDS */
+        .card {
+            background-color: var(--branco);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--dourado);
+        }
+
+        .card-title {
+            color: var(--cinza-escuro);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .card-content {
+            color: var(--cinza-claro);
+            font-size: 0.95rem;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--dourado), var(--dourado-fosco));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--dourado);
+            border-radius: 50%;
+        }
+
+        .timeline-item strong {
+            color: var(--dourado-fosco);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* COUNTRIES */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .country-card {
+            background: linear-gradient(135deg, var(--cinza-escuro) 0%, var(--preto) 100%);
+            color: var(--branco);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .country-card.priority {
+            border: 2px solid var(--dourado);
+        }
+
+        .country-card h4 {
+            color: var(--dourado);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .country-card p {
+            color: var(--cinza-texto);
+            font-size: 0.85rem;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* CONCLUSION */
+        .conclusion {
+            background: linear-gradient(135deg, var(--preto) 0%, var(--cinza-escuro) 100%);
+            color: var(--branco);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            color: var(--dourado);
+            border-bottom: none;
+            margin-bottom: 25px;
+        }
+
+        .conclusion p {
+            color: var(--cinza-texto);
+            max-width: 700px;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+
+        .conclusion .signature {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--cinza-medio);
+        }
+
+        .conclusion .signature p {
+            font-style: italic;
+            color: var(--cinza-texto);
+        }
+
+        /* BACK TO TOP */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--dourado) 0%, var(--dourado-fosco) 100%);
+            color: var(--preto);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--preto);
+            color: var(--cinza-texto);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+        }
+
+        footer .logo-footer {
+            height: 50px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        /* LANGUAGE VISIBILITY */
+        [data-lang-en] {
+            display: none;
+        }
+
+        [data-lang-pt] {
+            display: block;
+        }
+
+        html[lang="en"] [data-lang-en] {
+            display: block;
+        }
+
+        html[lang="en"] [data-lang-pt] {
+            display: none;
+        }
+
+        /* For inline elements */
+        span[data-lang-en], a[data-lang-en], strong[data-lang-en] {
+            display: none;
+        }
+
+        span[data-lang-pt], a[data-lang-pt], strong[data-lang-pt] {
+            display: inline;
+        }
+
+        html[lang="en"] span[data-lang-en], 
+        html[lang="en"] a[data-lang-en],
+        html[lang="en"] strong[data-lang-en] {
+            display: inline;
+        }
+
+        html[lang="en"] span[data-lang-pt], 
+        html[lang="en"] a[data-lang-pt],
+        html[lang="en"] strong[data-lang-pt] {
+            display: none;
+        }
+
+        /* For list items */
+        li[data-lang-en] {
+            display: none;
+        }
+
+        li[data-lang-pt] {
+            display: block;
+        }
+
+        html[lang="en"] li[data-lang-en] {
+            display: block;
+        }
+
+        html[lang="en"] li[data-lang-pt] {
+            display: none;
+        }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            .logo {
+                height: 80px;
+            }
+
+            .hero {
+                padding: 80px 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 60px 40px;
+            }
+
+            section h2 {
+                font-size: 1.6rem;
+            }
+
+            .countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-menu {
+                width: 350px;
+            }
+
+            .lang-btn {
+                width: 36px;
+                height: 25px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            header {
+                padding: 15px 40px;
+            }
+
+            .logo {
+                height: 90px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .countries-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Touch improvements for mobile */
+        @media (hover: none) {
+            .nav-menu a:hover {
+                background-color: transparent;
+                padding-left: 25px;
+            }
+            
+            .nav-menu a:active {
+                background-color: var(--cinza-medio);
+            }
+
+            .lang-btn:hover {
+                transform: none;
+            }
+
+            .lang-btn:active {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo-container">
+            <img src="https://res.cloudinary.com/dssgm6lyn/image/upload/v1758486114/Logo_Grupo_Gentil_-_1_fpnsdo.png" alt="Grupo Gentil" class="logo">
+        </div>
+        <div class="header-right">
+            <div class="language-selector">
+                <button class="lang-btn lang-btn-br active" id="langBR" aria-label="Português" title="Português"></button>
+                <button class="lang-btn lang-btn-us" id="langEN" aria-label="English" title="English"></button>
+            </div>
+            <div class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENU SUSPENSO -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <!-- Portuguese Menu -->
+            <li class="menu-section" data-lang-pt>Navegação</li>
+            <li class="menu-section" data-lang-en>Navigation</li>
+            
+            <li data-lang-pt><a href="#inicio">Início</a></li>
+            <li data-lang-en><a href="#inicio">Home</a></li>
+            
+            <li data-lang-pt><a href="#boas-vindas">Boas-vindas</a></li>
+            <li data-lang-en><a href="#boas-vindas">Welcome</a></li>
+            
+            <li class="menu-section" data-lang-pt>Estrutura</li>
+            <li class="menu-section" data-lang-en>Structure</li>
+            
+            <li data-lang-pt><a href="#visao">1. Visão Estratégica</a></li>
+            <li data-lang-en><a href="#visao">1. Strategic Vision</a></li>
+            
+            <li data-lang-pt><a href="#modelo">2. Modelo Institucional</a></li>
+            <li data-lang-en><a href="#modelo">2. Institutional Model</a></li>
+            
+            <li data-lang-pt><a href="#abrangencia">3. Abrangência Geográfica</a></li>
+            <li data-lang-en><a href="#abrangencia">3. Geographic Coverage</a></li>
+            
+            <li data-lang-pt><a href="#associados">4. Tipos de Associados</a></li>
+            <li data-lang-en><a href="#associados">4. Member Types</a></li>
+            
+            <li class="menu-section" data-lang-pt>Operações</li>
+            <li class="menu-section" data-lang-en>Operations</li>
+            
+            <li data-lang-pt><a href="#operacional">5. Modelo Operacional</a></li>
+            <li data-lang-en><a href="#operacional">5. Operational Model</a></li>
+            
+            <li data-lang-pt><a href="#beneficios">6. Benefícios Estratégicos</a></li>
+            <li data-lang-en><a href="#beneficios">6. Strategic Benefits</a></li>
+            
+            <li data-lang-pt><a href="#protection">7. ASL Protection Program</a></li>
+            <li data-lang-en><a href="#protection">7. ASL Protection Program</a></li>
+            
+            <li data-lang-pt><a href="#regras">8. Regras do Fundo</a></li>
+            <li data-lang-en><a href="#regras">8. Fund Rules</a></li>
+            
+            <li class="menu-section" data-lang-pt>Governança</li>
+            <li class="menu-section" data-lang-en>Governance</li>
+            
+            <li data-lang-pt><a href="#mitigacao">9. Dever de Mitigação</a></li>
+            <li data-lang-en><a href="#mitigacao">9. Duty to Mitigate</a></li>
+            
+            <li data-lang-pt><a href="#arbitragem">10. Sistema de Arbitragem</a></li>
+            <li data-lang-en><a href="#arbitragem">10. Arbitration System</a></li>
+            
+            <li data-lang-pt><a href="#cambiais">11. Aspectos Cambiais</a></li>
+            <li data-lang-en><a href="#cambiais">11. Foreign Exchange</a></li>
+            
+            <li data-lang-pt><a href="#governanca">12. Governança e Compliance</a></li>
+            <li data-lang-en><a href="#governanca">12. Governance & Compliance</a></li>
+            
+            <li class="menu-section" data-lang-pt>Implementação</li>
+            <li class="menu-section" data-lang-en>Implementation</li>
+            
+            <li data-lang-pt><a href="#juridico">13. Suporte Jurídico</a></li>
+            <li data-lang-en><a href="#juridico">13. Legal Support</a></li>
+            
+            <li data-lang-pt><a href="#estrutura">14. Estrutura Operacional</a></li>
+            <li data-lang-en><a href="#estrutura">14. Operational Structure</a></li>
+            
+            <li data-lang-pt><a href="#cronograma">15. Cronograma</a></li>
+            <li data-lang-en><a href="#cronograma">15. Timeline</a></li>
+            
+            <li data-lang-pt><a href="#conclusao">16. Conclusão</a></li>
+            <li data-lang-en><a href="#conclusao">16. Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="inicio">
+            <div class="hero-content">
+                <h1>ASL AMERICAS</h1>
+                <p class="subtitle" data-lang-pt>Plano de Negócios para Expansão Continental</p>
+                <p class="subtitle" data-lang-en>Business Plan for Continental Expansion</p>
+                <span class="hero-badge" data-lang-pt>Da ASL Brasil para as Américas</span>
+                <span class="hero-badge" data-lang-en>From ASL Brazil to the Americas</span>
+            </div>
+        </section>
+
+        <!-- BOAS-VINDAS -->
+        <section class="welcome-section" id="boas-vindas">
+            <div class="welcome-content animate-on-scroll">
+                <h2 data-lang-pt>Bem-vindo ao Futuro da ASL</h2>
+                <h2 data-lang-en>Welcome to the Future of ASL</h2>
+                
+                <p data-lang-pt>Este documento apresenta o <strong>Plano de Negócios para a expansão da ASL BRASIL para ASL AMERICAS</strong>, estruturado para apresentar, de forma clara e objetiva, a visão estratégica, o modelo jurídico-institucional, os benefícios aos associados e os mecanismos de governança necessários para uma atuação continental sólida, segura e escalável.</p>
+                <p data-lang-en>This document presents the <strong>Business Plan for the expansion of ASL BRAZIL to ASL AMERICAS</strong>, structured to clearly and objectively present the strategic vision, the legal-institutional model, the benefits to members, and the governance mechanisms necessary for a solid, secure, and scalable continental operation.</p>
+                
+                <p data-lang-pt>A proposta busca equilibrar <strong>vantagem econômica concreta</strong> para os associados, especialmente no acesso a fretes e condições mais favoráveis, com <strong>estrutura institucional robusta</strong>, proteção financeira, disciplina interna e suporte jurídico estratégico.</p>
+                <p data-lang-en>The proposal seeks to balance <strong>concrete economic advantages</strong> for members, especially in access to freight and more favorable conditions, with a <strong>robust institutional structure</strong>, financial protection, internal discipline, and strategic legal support.</p>
+
+                <div class="highlight">
+                    <p data-lang-pt>Este material foi organizado com um sumário estruturado para facilitar a navegação e permitir uma visão completa do projeto. Utilize o menu para acessar cada seção de interesse.</p>
+                    <p data-lang-en>This material has been organized with a structured summary to facilitate navigation and provide a complete view of the project. Use the menu to access each section of interest.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 1 -->
+        <section id="visao">
+            <span class="section-number">1</span>
+            <h2 data-lang-pt>Visão Estratégica e Proposta de Valor</h2>
+            <h2 data-lang-en>Strategic Vision and Value Proposition</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A <strong>ASL AMERICAS</strong> nasce como evolução natural da ASL BRASIL, com uma proposta de valor clara para os agentes de cargas.</p>
+                <p data-lang-en><strong>ASL AMERICAS</strong> emerges as a natural evolution of ASL BRAZIL, with a clear value proposition for freight agents.</p>
+                
+                <p data-lang-pt>O associado passa a ter <strong>acesso estruturado a fretes internacionais</strong> e condições comerciais mais competitivas, negociadas de forma coletiva por meio da All Cargo China, com ganho real de escala e poder de barganha.</p>
+                <p data-lang-en>Members gain <strong>structured access to international freight</strong> and more competitive commercial conditions, collectively negotiated through All Cargo China, with real gains in scale and bargaining power.</p>
+                
+                <p data-lang-pt>Esse benefício econômico direto é combinado com:</p>
+                <p data-lang-en>This direct economic benefit is combined with:</p>
+                
+                <ul>
+                    <li data-lang-pt>Proteção financeira institucional</li>
+                    <li data-lang-en>Institutional financial protection</li>
+                    <li data-lang-pt>Governança sólida</li>
+                    <li data-lang-en>Solid governance</li>
+                    <li data-lang-pt>Disciplina e segurança jurídica</li>
+                    <li data-lang-en>Discipline and legal security</li>
+                    <li data-lang-pt>Representação coletiva de interesses estratégicos</li>
+                    <li data-lang-en>Collective representation of strategic interests</li>
+                </ul>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Propósito Central</div>
+                    <div class="card-title" data-lang-en>Core Purpose</div>
+                    <div class="card-content" data-lang-pt>A ASL AMERICAS foi concebida para unir vantagem prática de mercado com estrutura institucional sólida, preparada para crescimento organizado nas Américas.</div>
+                    <div class="card-content" data-lang-en>ASL AMERICAS was designed to combine practical market advantages with a solid institutional structure, prepared for organized growth in the Americas.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2 -->
+        <section id="modelo">
+            <span class="section-number">2</span>
+            <h2 data-lang-pt>Modelo Institucional e Jurídico</h2>
+            <h2 data-lang-en>Institutional and Legal Model</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A ASL AMERICAS será estruturada como <strong>associação sem fins lucrativos</strong>, com sede no Brasil, admitindo associados nacionais e estrangeiros e com atuação continental.</p>
+                <p data-lang-en>ASL AMERICAS will be structured as a <strong>non-profit association</strong>, headquartered in Brazil, admitting national and foreign members with continental operations.</p>
+                
+                <p data-lang-pt>Do ponto de vista jurídico, a ASL <strong>não executa transporte nem intermedia fretes</strong>. A atividade econômica ocorre exclusivamente nos contratos individualizados dos associados.</p>
+                <p data-lang-en>From a legal standpoint, ASL <strong>does not execute transportation nor intermediate freight</strong>. Economic activity occurs exclusively in the individualized contracts of members.</p>
+                
+                <p data-lang-pt>A associação organiza o acesso às condições negociadas, representa interesses coletivos e estrutura o ecossistema, sem qualquer remuneração variável atrelada a volume.</p>
+                <p data-lang-en>The association organizes access to negotiated conditions, represents collective interests, and structures the ecosystem, without any variable compensation tied to volume.</p>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Segurança Jurídica</div>
+                    <div class="card-title" data-lang-en>Legal Security</div>
+                    <div class="card-content" data-lang-pt>Esse desenho preserva segurança jurídica e regulatória, sem afastar o principal benefício econômico percebido pelo associado.</div>
+                    <div class="card-content" data-lang-en>This design preserves legal and regulatory security, without diminishing the main economic benefit perceived by members.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3 -->
+        <section id="abrangencia">
+            <span class="section-number">3</span>
+            <h2 data-lang-pt>Abrangência Geográfica e Países Prioritários</h2>
+            <h2 data-lang-en>Geographic Coverage and Priority Countries</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A expansão será feita de forma progressiva, considerando fluxo de negócios Brasil-China, maturidade logística e potencial de crescimento.</p>
+                <p data-lang-en>Expansion will be progressive, considering Brazil-China business flow, logistics maturity, and growth potential.</p>
+                
+                <div class="countries-grid">
+                    <div class="country-card priority">
+                        <h4>México</h4>
+                        <p data-lang-pt>Entrada prioritária</p>
+                        <p data-lang-en>Priority entry</p>
+                    </div>
+                    <div class="country-card priority">
+                        <h4>Argentina</h4>
+                        <p data-lang-pt>Entrada prioritária</p>
+                        <p data-lang-en>Priority entry</p>
+                    </div>
+                    <div class="country-card priority">
+                        <h4>Colômbia</h4>
+                        <p data-lang-pt>Entrada prioritária</p>
+                        <p data-lang-en>Priority entry</p>
+                    </div>
+                    <div class="country-card">
+                        <h4>Chile</h4>
+                        <p data-lang-pt>Segunda fase</p>
+                        <p data-lang-en>Second phase</p>
+                    </div>
+                    <div class="country-card">
+                        <h4>Peru</h4>
+                        <p data-lang-pt>Segunda fase</p>
+                        <p data-lang-en>Second phase</p>
+                    </div>
+                    <div class="country-card">
+                        <h4>Paraguai</h4>
+                        <p data-lang-pt>Entrada estratégica e controlada</p>
+                        <p data-lang-en>Strategic and controlled entry</p>
+                    </div>
+                    <div class="country-card">
+                        <h4>Uruguai</h4>
+                        <p data-lang-pt>Entrada estratégica - Hub de distribuição com valores atraentes para armazenamento</p>
+                        <p data-lang-en>Strategic entry - Distribution hub with attractive storage rates</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4 -->
+        <section id="associados">
+            <span class="section-number">4</span>
+            <h2 data-lang-pt>Tipos de Associados e Critérios de Ingresso</h2>
+            <h2 data-lang-en>Member Types and Entry Criteria</h2>
+            <div class="animate-on-scroll">
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Associado Pleno</div>
+                    <div class="card-title" data-lang-en>Full Member</div>
+                    <div class="card-content">
+                        <ul>
+                            <li data-lang-pt>Acesso integral a todos os benefícios</li>
+                            <li data-lang-en>Full access to all benefits</li>
+                            <li data-lang-pt>Acesso às condições negociadas via All Cargo China</li>
+                            <li data-lang-en>Access to negotiated conditions via All Cargo China</li>
+                            <li data-lang-pt>Participação no ASL Protection Program</li>
+                            <li data-lang-en>Participation in ASL Protection Program</li>
+                            <li data-lang-pt>Submissão às regras de arbitragem, compliance e disciplina institucional</li>
+                            <li data-lang-en>Subject to arbitration, compliance, and institutional discipline rules</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Associado Internacional</div>
+                    <div class="card-title" data-lang-en>International Member</div>
+                    <div class="card-content">
+                        <ul>
+                            <li data-lang-pt>Mesmos direitos e deveres do associado pleno</li>
+                            <li data-lang-en>Same rights and duties as full members</li>
+                            <li data-lang-pt>Sede fora do Brasil</li>
+                            <li data-lang-en>Headquarters outside Brazil</li>
+                            <li data-lang-pt>Ingresso condicionado a due diligence reforçada</li>
+                            <li data-lang-en>Entry subject to enhanced due diligence</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Associado Observador</div>
+                    <div class="card-title" data-lang-en>Observer Member</div>
+                    <div class="card-content">
+                        <ul>
+                            <li data-lang-pt>Fase inicial de integração</li>
+                            <li data-lang-en>Initial integration phase</li>
+                            <li data-lang-pt>Acesso controlado às condições negociadas</li>
+                            <li data-lang-en>Controlled access to negotiated conditions</li>
+                            <li data-lang-pt>Sem acesso ao fundo de proteção</li>
+                            <li data-lang-en>No access to protection fund</li>
+                            <li data-lang-pt>Sem direito a voto</li>
+                            <li data-lang-en>No voting rights</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px;" data-lang-pt>Para se tornar <strong>Associado Pleno</strong>, o Associado Observador deverá cumprir, por três meses consecutivos, o volume mínimo de negócios definido pela ASL, além de atender aos critérios de compliance e reputação. Cumpridas essas condições, o enquadramento como Associado Pleno ocorre automaticamente.</p>
+                <p style="margin-top: 20px;" data-lang-en>To become a <strong>Full Member</strong>, the Observer Member must meet, for three consecutive months, the minimum business volume defined by ASL, in addition to meeting compliance and reputation criteria. Once these conditions are met, classification as a Full Member occurs automatically.</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5 -->
+        <section id="operacional">
+            <span class="section-number">5</span>
+            <h2 data-lang-pt>Modelo Operacional e Acesso a Fretes</h2>
+            <h2 data-lang-en>Operational Model and Freight Access</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A ASL representa os interesses coletivos dos seus associados.</p>
+                <p data-lang-en>ASL represents the collective interests of its members.</p>
+                
+                <p data-lang-pt>A <strong>All Cargo China</strong> atua como negociadora de fretes e condições junto aos armadores, consolidando volumes e ampliando o poder de barganha. Essas condições são disponibilizadas aos membros da ASL, com adesão sempre facultativa.</p>
+                <p data-lang-en><strong>All Cargo China</strong> acts as a negotiator of freight and conditions with carriers, consolidating volumes and expanding bargaining power. These conditions are made available to ASL members, with membership always optional.</p>
+                
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Responsabilidades</div>
+                    <div class="card-title" data-lang-en>Responsibilities</div>
+                    <div class="card-content" data-lang-pt>Contratos, bookings e conhecimentos de embarque permanecem individualizados, e as responsabilidades comerciais e operacionais são integralmente dos associados.</div>
+                    <div class="card-content" data-lang-en>Contracts, bookings, and bills of lading remain individualized, and commercial and operational responsibilities are entirely those of the members.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6 -->
+        <section id="beneficios">
+            <span class="section-number">6</span>
+            <h2 data-lang-pt>Benefícios Estratégicos aos Associados</h2>
+            <h2 data-lang-en>Strategic Benefits for Members</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A ASL AMERICAS entregará aos seus membros:</p>
+                <p data-lang-en>ASL AMERICAS will deliver to its members:</p>
+                <ul>
+                    <li data-lang-pt><strong>Acesso a fretes e condições comerciais mais competitivas</strong></li>
+                    <li data-lang-en><strong>Access to more competitive freight and commercial conditions</strong></li>
+                    <li data-lang-pt><strong>Proteção financeira institucional</strong></li>
+                    <li data-lang-en><strong>Institutional financial protection</strong></li>
+                    <li data-lang-pt><strong>Arbitragem privada especializada</strong></li>
+                    <li data-lang-en><strong>Specialized private arbitration</strong></li>
+                    <li data-lang-pt><strong>Networking regional qualificado</strong></li>
+                    <li data-lang-en><strong>Qualified regional networking</strong></li>
+                    <li data-lang-pt><strong>Fortalecimento reputacional</strong></li>
+                    <li data-lang-en><strong>Reputational strengthening</strong></li>
+                    <li data-lang-pt><strong>Apoio institucional em situações críticas</strong></li>
+                    <li data-lang-en><strong>Institutional support in critical situations</strong></li>
+                    <li data-lang-pt><strong>Aconselhamento jurídico</strong> em nível institucional e estratégico, voltado a temas de interesse coletivo dos associados</li>
+                    <li data-lang-en><strong>Legal counsel</strong> at institutional and strategic levels, focused on topics of collective interest to members</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 7 -->
+        <section id="protection">
+            <span class="section-number">7</span>
+            <h2>ASL Protection Program</h2>
+            <h3 data-lang-pt>Fundo de Proteção Financeira</h3>
+            <h3 data-lang-en>Financial Protection Fund</h3>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>Criação de um <strong>fundo mutualista associativo</strong> com a finalidade de:</p>
+                <p data-lang-en>Creation of a <strong>mutual associative fund</strong> with the purpose of:</p>
+                <ul>
+                    <li data-lang-pt>Antecipar liquidez ao associado prejudicado</li>
+                    <li data-lang-en>Advancing liquidity to the affected member</li>
+                    <li data-lang-pt>Preservar a confiança entre membros</li>
+                    <li data-lang-en>Preserving trust among members</li>
+                    <li data-lang-pt>Evitar rupturas financeiras pontuais</li>
+                    <li data-lang-en>Avoiding punctual financial disruptions</li>
+                </ul>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Natureza do Fundo</div>
+                    <div class="card-title" data-lang-en>Nature of the Fund</div>
+                    <div class="card-content" data-lang-pt>O fundo <strong>não é seguro</strong>, não é atividade financeira e não visa lucro.</div>
+                    <div class="card-content" data-lang-en>The fund <strong>is not insurance</strong>, is not a financial activity, and does not seek profit.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 8 -->
+        <section id="regras">
+            <span class="section-number">8</span>
+            <h2 data-lang-pt>Regras Financeiras do Fundo</h2>
+            <h2 data-lang-en>Fund Financial Rules</h2>
+            <h3 data-lang-pt>Recomposição e Penalidades</h3>
+            <h3 data-lang-en>Recomposition and Penalties</h3>
+            <div class="animate-on-scroll">
+                <ul>
+                    <li data-lang-pt>Pagamento rápido ao associado prejudicado</li>
+                    <li data-lang-en>Quick payment to the affected member</li>
+                    <li data-lang-pt>Direito de regresso automático e integral contra o causador do prejuízo</li>
+                    <li data-lang-en>Automatic and full right of recourse against the party causing the damage</li>
+                    <li data-lang-pt>Prazo padrão de recomposição de <strong>30 dias</strong></li>
+                    <li data-lang-en>Standard recomposition period of <strong>30 days</strong></li>
+                    <li data-lang-pt>Aplicação de multa administrativa adicional</li>
+                    <li data-lang-en>Application of additional administrative fine</li>
+                    <li data-lang-pt>Registro disciplinar automático</li>
+                    <li data-lang-en>Automatic disciplinary record</li>
+                    <li data-lang-pt>Exclusão do programa em caso de conduta reiterada, com possibilidade de exclusão da associação</li>
+                    <li data-lang-en>Exclusion from the program in case of repeated conduct, with possibility of exclusion from the association</li>
+                </ul>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Aportes Extraordinários</div>
+                    <div class="card-title" data-lang-en>Extraordinary Contributions</div>
+                    <div class="card-content" data-lang-pt>Somente quando necessários, de forma proporcional e temporária, com devolução aos membros após recuperação dos valores.</div>
+                    <div class="card-content" data-lang-en>Only when necessary, proportionally and temporarily, with return to members after value recovery.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 9 -->
+        <section id="mitigacao">
+            <span class="section-number">9</span>
+            <h2 data-lang-pt>Dever de Mitigação de Prejuízos</h2>
+            <h2 data-lang-en>Duty to Mitigate Damages</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>O acesso ao fundo pressupõe que o associado prejudicado adote <strong>medidas operacionais e jurídicas razoáveis</strong> para mitigar os danos.</p>
+                <p data-lang-en>Access to the fund presupposes that the affected member adopts <strong>reasonable operational and legal measures</strong> to mitigate damages.</p>
+                
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Avaliação</div>
+                    <div class="card-title" data-lang-en>Evaluation</div>
+                    <div class="card-content" data-lang-pt>O Comitê de Arbitragem avaliará a conduta das partes e poderá autorizar pagamento integral ou proporcional, conforme o caso.</div>
+                    <div class="card-content" data-lang-en>The Arbitration Committee will evaluate the conduct of the parties and may authorize full or proportional payment, as appropriate.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 10 -->
+        <section id="arbitragem">
+            <span class="section-number">10</span>
+            <h2 data-lang-pt>Sistema de Arbitragem e Solução de Disputas</h2>
+            <h2 data-lang-en>Arbitration and Dispute Resolution System</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>Criação de um <strong>Board de Arbitragem ASL</strong>, com as seguintes características:</p>
+                <p data-lang-en>Creation of an <strong>ASL Arbitration Board</strong>, with the following characteristics:</p>
+                <ul>
+                    <li data-lang-pt>Árbitro único como regra</li>
+                    <li data-lang-en>Single arbitrator as a rule</li>
+                    <li data-lang-pt>Procedimento técnico</li>
+                    <li data-lang-en>Technical procedure</li>
+                    <li data-lang-pt>Célere e confidencial</li>
+                    <li data-lang-en>Swift and confidential</li>
+                    <li data-lang-pt>Baixo custo</li>
+                    <li data-lang-en>Low cost</li>
+                    <li data-lang-pt>Voltado à solução de conflitos entre associados</li>
+                    <li data-lang-en>Focused on resolving conflicts between members</li>
+                    <li data-lang-pt>Preservação do equilíbrio do grupo</li>
+                    <li data-lang-en>Preservation of group balance</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 11 -->
+        <section id="cambiais">
+            <span class="section-number">11</span>
+            <h2 data-lang-pt>Aspectos Cambiais e Remessas Internacionais</h2>
+            <h2 data-lang-en>Foreign Exchange and International Remittances</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>Contribuições associativas e aportes ao fundo por membros estrangeiros ocorrerão como <strong>contribuições a associação</strong> e a fundo mutualista privado sem finalidade lucrativa, em conformidade com a legislação cambial brasileira.</p>
+                <p data-lang-en>Membership contributions and fund contributions by foreign members will occur as <strong>contributions to the association</strong> and to a private mutual fund without profit purpose, in compliance with Brazilian foreign exchange legislation.</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 12 -->
+        <section id="governanca">
+            <span class="section-number">12</span>
+            <h2 data-lang-pt>Governança, Compliance e Disciplina Institucional</h2>
+            <h2 data-lang-en>Governance, Compliance, and Institutional Discipline</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>Estrutura composta por:</p>
+                <p data-lang-en>Structure composed of:</p>
+                <ul>
+                    <li data-lang-pt><strong>Conselho Diretor Continental</strong></li>
+                    <li data-lang-en><strong>Continental Board of Directors</strong></li>
+                    <li data-lang-pt><strong>Comitê de Compliance</strong></li>
+                    <li data-lang-en><strong>Compliance Committee</strong></li>
+                    <li data-lang-pt><strong>Comitê do Fundo</strong></li>
+                    <li data-lang-en><strong>Fund Committee</strong></li>
+                    <li data-lang-pt><strong>Comitê de Arbitragem</strong></li>
+                    <li data-lang-en><strong>Arbitration Committee</strong></li>
+                </ul>
+                
+                <p data-lang-pt>Mecanismos de controle:</p>
+                <p data-lang-en>Control mechanisms:</p>
+                <ul>
+                    <li data-lang-pt>Due diligence de ingresso</li>
+                    <li data-lang-en>Entry due diligence</li>
+                    <li data-lang-pt>Score reputacional</li>
+                    <li data-lang-en>Reputational score</li>
+                    <li data-lang-pt>Código de conduta</li>
+                    <li data-lang-en>Code of conduct</li>
+                    <li data-lang-pt>Sanções progressivas</li>
+                    <li data-lang-en>Progressive sanctions</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 13 -->
+        <section id="juridico">
+            <span class="section-number">13</span>
+            <h2 data-lang-pt>Suporte Jurídico Institucional e Estratégico</h2>
+            <h2 data-lang-en>Institutional and Strategic Legal Support</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A ASL AMERICAS contará com <strong>suporte jurídico institucional permanente</strong>, responsável por:</p>
+                <p data-lang-en>ASL AMERICAS will have <strong>permanent institutional legal support</strong>, responsible for:</p>
+                <ul>
+                    <li data-lang-pt>Estruturação estatutária</li>
+                    <li data-lang-en>Statutory structuring</li>
+                    <li data-lang-pt>Regulação do fundo e da arbitragem</li>
+                    <li data-lang-en>Fund and arbitration regulation</li>
+                    <li data-lang-pt>Análise de riscos jurídicos e regulatórios</li>
+                    <li data-lang-en>Legal and regulatory risk analysis</li>
+                    <li data-lang-pt>Representação e consolidação de entendimentos jurídicos de interesse coletivo dos associados</li>
+                    <li data-lang-en>Representation and consolidation of legal understandings of collective interest to members</li>
+                </ul>
+
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Pilar Fundamental</div>
+                    <div class="card-title" data-lang-en>Fundamental Pillar</div>
+                    <div class="card-content" data-lang-pt>Esse pilar jurídico é central para a credibilidade, estabilidade e expansão do projeto.</div>
+                    <div class="card-content" data-lang-en>This legal pillar is central to the credibility, stability, and expansion of the project.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 14 -->
+        <section id="estrutura">
+            <span class="section-number">14</span>
+            <h2 data-lang-pt>Estrutura Operacional, Custos e Investimentos</h2>
+            <h2 data-lang-en>Operational Structure, Costs, and Investments</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>Estrutura <strong>enxuta e escalável</strong>, com custos previsíveis, sustentada por contribuições associativas.</p>
+                <p data-lang-en><strong>Lean and scalable</strong> structure, with predictable costs, sustained by membership contributions.</p>
+                
+                <div class="card">
+                    <div class="card-title" data-lang-pt>Investimento Inicial</div>
+                    <div class="card-title" data-lang-en>Initial Investment</div>
+                    <div class="card-content" data-lang-pt>O investimento inicial estará concentrado em ajustes jurídicos, regulamentos internos e comunicação institucional.</div>
+                    <div class="card-content" data-lang-en>The initial investment will be concentrated on legal adjustments, internal regulations, and institutional communication.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 15 -->
+        <section id="cronograma">
+            <span class="section-number">15</span>
+            <h2 data-lang-pt>Cronograma de Implantação</h2>
+            <h2 data-lang-en>Implementation Timeline</h2>
+            <div class="animate-on-scroll">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong data-lang-pt>30 dias</strong>
+                        <strong data-lang-en>30 days</strong>
+                        <span data-lang-pt>Ajustes jurídicos e estatutários</span>
+                        <span data-lang-en>Legal and statutory adjustments</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong data-lang-pt>60 dias</strong>
+                        <strong data-lang-en>60 days</strong>
+                        <span data-lang-pt>Ingresso de México, Argentina e Colômbia</span>
+                        <span data-lang-en>Entry of Mexico, Argentina and Colombia</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong data-lang-pt>90 dias</strong>
+                        <strong data-lang-en>90 days</strong>
+                        <span data-lang-pt>Ativação do ASL Protection Program</span>
+                        <span data-lang-en>Activation of ASL Protection Program</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong data-lang-pt>120 dias</strong>
+                        <strong data-lang-en>120 days</strong>
+                        <span data-lang-pt>Arbitragem ASL plenamente operacional</span>
+                        <span data-lang-en>ASL Arbitration fully operational</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCLUSÃO -->
+        <section class="conclusion" id="conclusao">
+            <span class="section-number">16</span>
+            <h2 data-lang-pt>Conclusão Executiva</h2>
+            <h2 data-lang-en>Executive Conclusion</h2>
+            <div class="animate-on-scroll">
+                <p data-lang-pt>A ASL AMERICAS reúne <strong>vantagem econômica concreta</strong>, proteção institucional, governança jurídica e visão estratégica de longo prazo, criando um ambiente seguro e atrativo para agentes de cargas que buscam crescimento com previsibilidade e respaldo.</p>
+                <p data-lang-en>ASL AMERICAS combines <strong>concrete economic advantages</strong>, institutional protection, legal governance, and long-term strategic vision, creating a safe and attractive environment for freight agents seeking growth with predictability and support.</p>
+                
+                <div class="signature">
+                    <p data-lang-pt>Estamos à disposição para conversarmos sobre o plano e avançarmos para os próximos passos.</p>
+                    <p data-lang-en>We are available to discuss the plan and move forward to the next steps.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao início">
+        ↑
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="https://res.cloudinary.com/dssgm6lyn/image/upload/v1758486114/Logo_Grupo_Gentil_-_1_fpnsdo.png" alt="Grupo Gentil" class="logo-footer">
+        <p>ASL AMERICAS | <span data-lang-pt>Plano de Expansão Continental</span><span data-lang-en>Continental Expansion Plan</span></p>
+        <p>© 2025 Grupo Gentil. <span data-lang-pt>Todos os direitos reservados.</span><span data-lang-en>All rights reserved.</span></p>
+    </footer>
+
+    <script>
+        // Language Switching
+        const langBR = document.getElementById('langBR');
+        const langEN = document.getElementById('langEN');
+        const htmlElement = document.documentElement;
+
+        function setLanguage(lang) {
+            htmlElement.setAttribute('lang', lang);
+            
+            if (lang === 'pt-BR') {
+                langBR.classList.add('active');
+                langEN.classList.remove('active');
+                document.title = 'ASL AMERICAS | Plano de Expansão';
+            } else {
+                langEN.classList.add('active');
+                langBR.classList.remove('active');
+                document.title = 'ASL AMERICAS | Expansion Plan';
+            }
+            
+            // Save preference
+            localStorage.setItem('asl-language', lang);
+        }
+
+        langBR.addEventListener('click', () => setLanguage('pt-BR'));
+        langEN.addEventListener('click', () => setLanguage('en'));
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('asl-language');
+        if (savedLang) {
+            setLanguage(savedLang);
+        }
+
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Animate on Scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animateElements.forEach(el => observer.observe(el));
+
+        // Touch support for mobile menu
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 100;
+            const diff = touchStartX - touchEndX;
+
+            // Swipe left to close menu
+            if (diff > swipeThreshold && navMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+            // Swipe right from edge to open menu
+            if (diff < -swipeThreshold && touchStartX < 30 && !navMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        }
+
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
