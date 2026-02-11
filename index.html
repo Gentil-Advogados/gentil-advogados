@@ -49,7 +49,7 @@
             z-index: 1000;
             padding: 10px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             box-shadow: 0 2px 15px rgba(0,0,0,0.15);
         }
@@ -57,11 +57,17 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            flex: 1;
         }
 
         .logo {
             height: 60px;
+            width: auto;
+        }
+
+        .logo-asl {
+            height: 45px;
             width: auto;
         }
 
@@ -740,10 +746,10 @@
     <!-- HEADER -->
     <header>
         <div class="logo-container">
-            <img src="https://res.cloudinary.com/djsrzjqwe/image/upload/v1770841344/67995cff-c950-49dc-9e6d-d30fd949faf7_ovp02c.png" alt="ASL" class="logo">
-            <img src="https://res.cloudinary.com/dssgm6lyn/image/upload/v1758486114/Logo_Grupo_Gentil_-_1_fpnsdo.png" alt="Grupo Gentil" class="logo">
+            <img src="https://res.cloudinary.com/djsrzjqwe/image/upload/v1770841344/67995cff-c950-49dc-9e6d-d30fd949faf7_ovp02c.png" alt="ASL" class="logo-asl">
         </div>
         <div class="header-right">
+            <img src="https://res.cloudinary.com/dssgm6lyn/image/upload/v1758486114/Logo_Grupo_Gentil_-_1_fpnsdo.png" alt="Grupo Gentil" class="logo">
             <div class="language-selector">
                 <button class="lang-btn lang-btn-br active" id="langBR" aria-label="Português" title="Português"></button>
                 <button class="lang-btn lang-btn-us" id="langEN" aria-label="English" title="English"></button>
